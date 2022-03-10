@@ -32,3 +32,5 @@ build/
 .vscode/
 
 /src/main/resources/*.csv
+
+/src/frontend/node_modules/
