@@ -1,10 +1,15 @@
 package springsample.dev.ipldashboard.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import springsample.dev.ipldashboard.model.Match;
 import springsample.dev.ipldashboard.model.Team;
 import springsample.dev.ipldashboard.repository.MatchRepository;
 import springsample.dev.ipldashboard.repository.TeamRepository;
@@ -31,6 +36,13 @@ public class TeamController {
         var matchs = matchRepository.findLastMatchesByTeam(teamName, 4);
         team.setMatchs(matchs);
         return team;
+    }
+
+    @GetMapping("/team/{teamName}/matches")
+    public List<Match> getMatchesForTeam(@PathVariable String teamName, @RequestParam int year) {
+        var startDate = LocalDate.of(year, 1, 1);
+        var endDate = LocalDate.of(year, 12, 31);
+        return matchRepository.findByTeamNameAndYear(teamName, startDate, endDate);
     }
 
     // パス決定において、完全一致の方が優先されている
