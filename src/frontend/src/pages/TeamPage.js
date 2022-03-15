@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { MatchDetailCard } from "../components/MatchDetailCard";
 import { MatchSmallCard } from "../components/MatchSmallCard";
 import { PieChart } from "react-minimal-pie-chart";
+import { Link } from "react-router-dom";
 
 import "./TeamPage.scss";
 
@@ -10,6 +11,10 @@ export const TeamPage = () => {
   const [team, setTeam] = useState(null);
   let { teamName } = useParams();
   teamName = teamName ?? "Mumbai Indians"; //TODO 暫定デフォルト値設定
+
+  //TODO 環境変数からの取得
+  //const latestYear = process.env.REACT_APP_DATA_END_YEAR;
+  const latestYear = 2020;
 
   useEffect(() => {
     console.log("fetch: " + teamName);
@@ -60,7 +65,9 @@ export const TeamPage = () => {
               <MatchSmallCard key={m.id} teamName={teamName} match={m} />
             ))}
           <div className="more-link">
-            <a href="#">More &gt;</a>
+            <Link to={`/teams/${teamName}/matches/${latestYear}`}>
+              More &gt;
+            </Link>
           </div>
         </>
       )}

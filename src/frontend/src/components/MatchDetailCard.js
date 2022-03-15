@@ -5,6 +5,7 @@ export const MatchDetailCard = (props) => {
   const { match, teamName } = props;
   const otherTeam = match.team1 === teamName ? match.team2 : match.team1;
   const isMatchWon = teamName === match.matchWinner;
+
   return (
     <div
       className={
