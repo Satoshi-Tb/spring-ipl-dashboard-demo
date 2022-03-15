@@ -9,8 +9,7 @@ import "./TeamPage.scss";
 
 export const TeamPage = () => {
   const [team, setTeam] = useState(null);
-  let { teamName } = useParams();
-  teamName = teamName ?? "Mumbai Indians"; //TODO 暫定デフォルト値設定
+  const { teamName } = useParams();
 
   //TODO 環境変数からの取得
   //const latestYear = process.env.REACT_APP_DATA_END_YEAR;
@@ -43,7 +42,6 @@ export const TeamPage = () => {
           </div>
           <div className="win-loss-section">
             Wins / Losses
-            <br />
             <PieChart
               data={[
                 {
@@ -54,6 +52,7 @@ export const TeamPage = () => {
                 { title: "Wins", value: team.totalWins, color: "#4da375" },
               ]}
             />
+            <Link to={`/teams`}>Back home &gt;</Link>
           </div>
           <div className="match-detail-section">
             <h3>Latest Matches</h3>

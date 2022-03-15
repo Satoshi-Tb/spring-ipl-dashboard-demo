@@ -34,7 +34,7 @@ export const MatchPage = () => {
       </div>
       <div>
         {matches === null || matches.length === 0 ? (
-          <p>No matches found</p>
+          <p>No matches found in {year}</p>
         ) : (
           <>
             <h1 className="page-heading">
