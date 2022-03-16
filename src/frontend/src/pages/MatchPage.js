@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MatchDetailCard } from "../components/MatchDetailCard";
+import { Spinner } from "../components/Spinner";
 import { YearSelector } from "../components/YearSelector";
 import "./MatchPage.scss";
 
 export const MatchPage = () => {
   const [matches, setMatches] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { teamName, year } = useParams();
   console.log("teamname: " + teamName + ", year: " + year);
 
   useEffect(() => {
+    setLoading(true);
     console.log("fetch: " + teamName);
     const fetchMatches = async () => {
       try {
@@ -25,6 +28,7 @@ export const MatchPage = () => {
       }
     };
     fetchMatches();
+    setLoading(false);
   }, [teamName, year]);
 
   return (
@@ -33,7 +37,9 @@ export const MatchPage = () => {
         <YearSelector teamName={teamName} />
       </div>
       <div>
-        {matches === null || matches.length === 0 ? (
+        {loading ? (
+          <Spinner />
+        ) : matches === null || matches.length === 0 ? (
           <p>No matches found in {year}</p>
         ) : (
           <>

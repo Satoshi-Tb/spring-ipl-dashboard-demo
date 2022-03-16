@@ -6,16 +6,17 @@ import { PieChart } from "react-minimal-pie-chart";
 import { Link } from "react-router-dom";
 
 import "./TeamPage.scss";
+import { Spinner } from "../components/Spinner";
 
 export const TeamPage = () => {
   const [team, setTeam] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { teamName } = useParams();
 
-  //TODO 環境変数からの取得
-  //const latestYear = process.env.REACT_APP_DATA_END_YEAR;
-  const latestYear = 2020;
+  const latestYear = Number(process.env.REACT_APP_DATA_END_YEAR);
 
   useEffect(() => {
+    setLoading(true);
     console.log("fetch: " + teamName);
     const fetchMatches = async () => {
       try {
@@ -29,11 +30,14 @@ export const TeamPage = () => {
       }
     };
     fetchMatches();
+    setLoading(false);
   }, [teamName]);
 
   return (
     <div className="TeamPage">
-      {team === null || !team.teamName ? (
+      {loading ? (
+        <Spinner />
+      ) : team === null || !team.teamName ? (
         <p className="team-name">Team not found</p>
       ) : (
         <>

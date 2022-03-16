@@ -3,12 +3,13 @@ import "./YearSelector.scss";
 
 export const YearSelector = (props) => {
   const { teamName } = props;
-  //TODO 環境変数から取得
-  const startYear = process.env.REACT_APP_DATA_START_YEAR;
-  const endYear = process.env.REACT_APP_DATA_END_YEAR;
 
-  const years = [...Array(2020 - 2008 + 1).keys()].map((e) => 2020 - e);
-  console.log(years);
+  const startYear = Number(process.env.REACT_APP_DATA_START_YEAR);
+  const endYear = Number(process.env.REACT_APP_DATA_END_YEAR);
+
+  const years = [...Array(endYear - startYear + 1).keys()].map(
+    (e) => endYear - e
+  );
 
   return (
     <ol className="YearSelector">
